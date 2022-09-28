@@ -1,0 +1,13 @@
+name = "m22-stellar-buzz"
+account_id = "ba55b7ae9acfb3ed152103e3497c0752"
+
+main = "./.cloudflare/worker.js"
+
+[site]
+bucket = "./.cloudflare/public"
+
+[build]
+command = "pnpm run build"
+
+compatibility_date = "2021-11-12"
+workers_dev = true
