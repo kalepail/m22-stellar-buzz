@@ -15,7 +15,7 @@ $: {
 }
 </script>
 
-<svg class="border border-black" viewBox="0 0 {w} {h}" width="{w}" height="{h}" xmlns="http://www.w3.org/2000/svg">
+<svg class="border border-black w-full h-auto" style:max-width="{w}px" viewBox="0 0 {w} {h}" width="{w}" height="{h}" xmlns="http://www.w3.org/2000/svg">
   <!-- background -->
   <!-- 0 size -->
   <!-- 1 color -->
