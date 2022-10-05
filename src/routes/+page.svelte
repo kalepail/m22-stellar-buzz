@@ -1,18 +1,44 @@
 <script>
-import { random } from 'lodash-es'
-import { enhance } from '$app/forms';
-import colors from '../final-colors.json'
+  import { random } from 'lodash-es'
+  import colors from '../final-colors.json'
+  import { onMount } from 'svelte';
+  import { handleResponse } from '@/helpers/utils'
 
-let w = 600
-let h = 320
-let alph = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
-let arr = new Array(12).fill(0).map(() => random(0, 61))
-let code = ''
+  let w = 600
+  let h = 320
+  let alph = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+  let arr = new Array(12).fill(0).map(() => random(0, 61))
+  let code = ''
 
-$: {
-  code = ''
-  arr.forEach((value) => code += alph[value])
-}
+  $: {
+    code = ''
+    arr.forEach((value) => code += alph[value])
+  }
+
+  let albedo
+  let StellarSdk
+
+  onMount(async () => {
+    albedo = await import('@albedo-link/intent').then((pkg) => pkg.default)
+    StellarSdk = await import('stellar-sdk')
+  })
+
+  async function handleSubmit() {
+    await fetch('/xdr', {
+      // headers: {
+      //   'Accept': 'application/json'
+      // }
+    })
+    .then(handleResponse)
+    .then((res) => console.log(res))
+
+    // const response = await fetch(this.action, {
+    //   method: 'POST',
+    //   body: data
+    // })
+    
+    // const result = await response.json();
+  }
 </script>
 
 <svg class="border border-black w-full h-auto" style:max-width="{w}px" viewBox="0 0 {w} {h}" width="{w}" height="{h}" xmlns="http://www.w3.org/2000/svg">
@@ -79,7 +105,7 @@ $: {
   />
 </svg>
 
-<form class="flex flex-col" style:width="{h}px" method="POST" use:enhance>
+<form class="flex flex-col" style:width="{h}px" method="POST" on:submit|preventDefault={handleSubmit}>
   <input type="hidden" bind:value="{arr}" name="arr">
   <input type="hidden" bind:value="{code}" name="code">
 

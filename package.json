@@ -1,26 +1,36 @@
 {
-  "name": "m22-stellar-buzz",
-  "version": "0.0.1",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "vite dev",
     "build": "CF_PAGES=1 vite build",
     "preview": "vite preview"
   },
   "devDependencies": {
+    "@esbuild-plugins/node-globals-polyfill": "^0.1.1",
+    "@rollup/plugin-inject": "^4.0.4",
     "@sveltejs/adapter-auto": "next",
-    "@sveltejs/adapter-cloudflare-workers": "1.0.0-next.57",
+    "@sveltejs/adapter-cloudflare-workers": "1.0.0-next.58",
     "@sveltejs/kit": "next",
-    "autoprefixer": "^10.4.7",
-    "postcss": "^8.4.14",
+    "autoprefixer": "^10.4.12",
+    "buffer": "^6.0.3",
+    "esbuild": "^0.15.10",
+    "path": "^0.12.7",
+    "postcss": "^8.4.17",
     "postcss-load-config": "^4.0.1",
-    "svelte": "^3.44.0",
+    "rollup": "^2.79.1",
+    "svelte": "^3.50.1",
     "svelte-preprocess": "^4.10.7",
-    "tailwindcss": "^3.1.5",
-    "vite": "^3.1.0"
+    "tailwindcss": "^3.1.8",
+    "vite": "^3.1.4"
   },
-  "type": "module",
   "dependencies": {
-    "lodash-es": "^4.17.21"
+    "@albedo-link/intent": "^0.12.0",
+    "lodash-es": "^4.17.21",
+    "stellar-base": "^8.2.1",
+    "stellar-sdk": "^10.4.0"
+  },
+  "engines": {
+    "node": "16.x"
   }
 }
