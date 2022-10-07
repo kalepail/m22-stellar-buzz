@@ -173,7 +173,7 @@
     {/each}
   </div>
 
-  <button class="bg-black text-white p-2 flex items-center justify-center" type="submit" disabled="{loading}">
+  <button class="bg-black text-white p-2 flex items-center justify-center disabled:bg-gray-500" type="submit" disabled="{success || loading}">
     {#if loading}
       ...
     {:else}
