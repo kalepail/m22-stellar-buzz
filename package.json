@@ -31,8 +31,5 @@
     "lodash-es": "^4.17.21",
     "stellar-base": "^8.2.1",
     "stellar-sdk": "^10.4.0"
-  },
-  "engines": {
-    "node": "16.x"
   }
 }
