@@ -5,6 +5,11 @@
   import { handleResponse } from '@/helpers/utils'
   // import { Server, Transaction } from 'stellar-sdk';
 
+  console.log(
+    import.meta.env.VITE_HORIZON,
+    import.meta.env.VITE_NETWORK
+  )
+
   const w = 600
   const h = 320
   const alph = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
