@@ -11,6 +11,7 @@
   let arr = new Array(12).fill(0).map(() => random(0, 61))
   let code = ''
   let input = ''
+  let loading = false
   let success = false
 
   $: {
@@ -38,50 +39,62 @@
   })
 
   async function handleSubmit() {
-    const { Server, Transaction } = StellarSdk
-    const server = new Server(import.meta.env.VITE_HORIZON)
+    try {
+      loading = true
 
-    const albedoPublicKey = await albedo.publicKey()
-    const { pubkey } = albedoPublicKey
+      const { Server, Transaction } = StellarSdk
+      const server = new Server(import.meta.env.VITE_HORIZON)
 
-    const getXdrResponse = await fetch('/xdr', {
-      method: 'POST',
-      body: JSON.stringify({
-        ...albedoPublicKey,
-        code,
-      }),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }).then(handleResponse)
-    const { xdr: unsignedXdr, key } = getXdrResponse
+      const albedoPublicKey = await albedo.publicKey()
+      const { pubkey } = albedoPublicKey
 
-    const alebedoTx = await albedo.tx({
-      pubkey,
-      xdr: unsignedXdr,
-      network: import.meta.env.VITE_NETWORK,
-      description: 'Mint Meridian 2022 NFT',
-      submit: false
-    })
+      const getXdrResponse = await fetch('/xdr', {
+        method: 'POST',
+        body: JSON.stringify({
+          ...albedoPublicKey,
+          code,
+        }),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }).then(handleResponse)
+      const { xdr: unsignedXdr, key } = getXdrResponse
 
-    const submitXdrResponse = await fetch('/xdr', {
-      method: 'POST',
-      body: JSON.stringify({
-        ...alebedoTx,
-        key
-      }),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }).then(handleResponse)
-    const { xdr: signedXdr } = submitXdrResponse
+      const alebedoTx = await albedo.tx({
+        pubkey,
+        xdr: unsignedXdr,
+        network: import.meta.env.VITE_NETWORK,
+        description: 'Mint Meridian 2022 NFT',
+        submit: false
+      })
 
-    const transaction = new Transaction(signedXdr, import.meta.env.VITE_NETWORK)
-    const horizonResponse = await server.submitTransaction(transaction)
+      const submitXdrResponse = await fetch('/xdr', {
+        method: 'POST',
+        body: JSON.stringify({
+          ...alebedoTx,
+          key
+        }),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }).then(handleResponse)
+      const { xdr: signedXdr } = submitXdrResponse
 
-    console.log(horizonResponse)
+      const transaction = new Transaction(signedXdr, import.meta.env.VITE_NETWORK)
+      const horizonResponse = await server.submitTransaction(transaction)
 
-    success = true
+      console.log(horizonResponse)
+
+      success = true
+    } 
+    
+    catch(err) {
+      console.error(err)
+    } 
+    
+    finally {
+      loading = false
+    }
   }
 </script>
 
@@ -160,11 +173,15 @@
     {/each}
   </div>
 
-  <button class="bg-black text-white p-2 flex items-center justify-center" type="submit">
-    Mint 
-    <code class="text-xs bg-white text-black mx-2 rounded-full px-2">{code}</code> 
-    {#if success}
-      <aside>✅</aside>
+  <button class="bg-black text-white p-2 flex items-center justify-center" type="submit" disabled="{loading}">
+    {#if loading}
+      ...
+    {:else}
+      Mint 
+      <code class="text-xs bg-white text-black mx-2 rounded-full px-2">{code}</code> 
+      {#if success}
+        <aside>✅</aside>
+      {/if}
     {/if}
   </button>
 </form>
