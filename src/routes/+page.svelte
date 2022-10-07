@@ -3,7 +3,7 @@
   import colors from '@/final-colors.json'
   import { onMount } from 'svelte';
   import { handleResponse } from '@/helpers/utils'
-  import { Server, Transaction } from 'stellar-sdk';
+  // import { Server, Transaction } from 'stellar-sdk';
 
   const server = new Server(import.meta.env.VITE_HORIZON)
   const w = 600
@@ -31,14 +31,16 @@
   }
 
   let albedo
-  // let StellarSdk
+  let StellarSdk
 
   onMount(async () => {
     albedo = await import('@albedo-link/intent').then((pkg) => pkg.default)
-    // StellarSdk = await import('stellar-sdk')
+    StellarSdk = await import('stellar-sdk')
   })
 
   async function handleSubmit() {
+    const { Server, Transaction } = StellarSdk
+
     const albedoPublicKey = await albedo.publicKey()
     const { pubkey } = albedoPublicKey
 

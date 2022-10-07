@@ -1,8 +1,11 @@
 import { ISSUER_PK, ISSUER_SK, NETWORK, HORIZON } from '$env/static/private'
-import { verifyMessageSignature } from '@albedo-link/signature-verification'
+// import { verifyMessageSignature } from '@albedo-link/signature-verification'
+import albedoLinkSignatureVerification from '@albedo-link/signature-verification'
 import { handleResponse } from '@/helpers/utils'
 import BigNumber from 'bignumber.js'
 import { Keypair, Account, TransactionBuilder, Networks, Operation, Asset, Transaction } from 'stellar-base'
+
+const { verifyMessageSignature } = albedoLinkSignatureVerification
 
 const issuerKeypair = Keypair.fromSecret(ISSUER_SK)
 
