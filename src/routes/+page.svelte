@@ -5,7 +5,6 @@
   import { handleResponse } from '@/helpers/utils'
   // import { Server, Transaction } from 'stellar-sdk';
 
-  const server = new Server(import.meta.env.VITE_HORIZON)
   const w = 600
   const h = 320
   const alph = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
@@ -15,7 +14,6 @@
   let input = ''
 
   $: {
-    console.log('fired')
     code = ''
     arr.forEach((value) => code += alph[value])
   }
@@ -40,6 +38,7 @@
 
   async function handleSubmit() {
     const { Server, Transaction } = StellarSdk
+    const server = new Server(import.meta.env.VITE_HORIZON)
 
     const albedoPublicKey = await albedo.publicKey()
     const { pubkey } = albedoPublicKey
