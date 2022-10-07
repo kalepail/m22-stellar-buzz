@@ -26,6 +26,8 @@
   },
   "dependencies": {
     "@albedo-link/intent": "^0.12.0",
+    "@albedo-link/signature-verification": "^0.1.2",
+    "bignumber.js": "^9.1.0",
     "lodash-es": "^4.17.21",
     "stellar-base": "^8.2.1",
     "stellar-sdk": "^10.4.0"
