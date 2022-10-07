@@ -3,12 +3,6 @@
   import colors from '@/final-colors.json'
   import { onMount } from 'svelte';
   import { handleResponse } from '@/helpers/utils'
-  // import { Server, Transaction } from 'stellar-sdk';
-
-  console.log(
-    import.meta.env.VITE_HORIZON,
-    import.meta.env.VITE_NETWORK
-  )
 
   const w = 600
   const h = 320
@@ -17,9 +11,11 @@
   let arr = new Array(12).fill(0).map(() => random(0, 61))
   let code = ''
   let input = ''
+  let success = false
 
   $: {
     code = ''
+    success = false
     arr.forEach((value) => code += alph[value])
   }
   $: {
@@ -84,6 +80,8 @@
     const horizonResponse = await server.submitTransaction(transaction)
 
     console.log(horizonResponse)
+
+    success = true
   }
 </script>
 
@@ -163,6 +161,10 @@
   </div>
 
   <button class="bg-black text-white p-2 flex items-center justify-center" type="submit">
-    Mint <code class="text-xs bg-white text-black ml-2 rounded-full px-2">{code}</code>
+    Mint 
+    <code class="text-xs bg-white text-black mx-2 rounded-full px-2">{code}</code> 
+    {#if success}
+      <aside>✅</aside>
+    {/if}
   </button>
 </form>

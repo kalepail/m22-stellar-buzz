@@ -1,0 +1,8 @@
+- [ ] Support custom toml files
+- [ ] Add domain to NFT Issuer address
+- [ ] Add better errors
+- [ ] Add loaders
+- [x] Add success state
+- [ ] Support live testnet and public network
+- [ ] Get this on the custom domain m22.stellar.buzz
+- [ ] Any reason not to just send to the user and have them sign and submit? Why do we round trip and have us be the final signer? Double (or really triple) Albedo is tough
