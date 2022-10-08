@@ -1,5 +1,4 @@
 import { ISSUER_PK, ISSUER_SK, NETWORK, HORIZON } from '$env/static/private'
-// import { verifyMessageSignature } from '@albedo-link/signature-verification'
 import albedoLinkSignatureVerification from '@albedo-link/signature-verification'
 import { handleResponse } from '@/helpers/utils'
 import BigNumber from 'bignumber.js'
@@ -9,14 +8,17 @@ const { verifyMessageSignature } = albedoLinkSignatureVerification
 
 const issuerKeypair = Keypair.fromSecret(ISSUER_SK)
 
-export async function POST({request}) {
+export async function POST({ platform, request }) {
   const body = await request.json()
   const { 
     code, pubkey, signature, signed_message,
-    network, signed_envelope_xdr, key
+    signed_envelope_xdr, key
   } = body
 
   if (key) {
+    const { env } = platform
+    const { NFTS } = env
+
     const transaction = new Transaction(signed_envelope_xdr, Networks[NETWORK])
     const keyIsValid = issuerKeypair.verify(transaction.hash(), Buffer.from(key, 'base64'))
 
@@ -24,6 +26,9 @@ export async function POST({request}) {
       throw new Error('Invalid key')
 
     transaction.sign(issuerKeypair)
+
+    console.log(code)
+    await NFTS.put(code, 'OK')
 
     return new Response(
       JSON.stringify({

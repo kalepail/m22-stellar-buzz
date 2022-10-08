@@ -1,0 +1,49 @@
+import { Networks } from "stellar-base"
+import { NETWORK, ISSUER_PK } from '$env/static/private'
+
+export async function GET({ url, platform }) {
+  const { env } = platform
+  const { NFTS } = env
+
+  const domain = url.host.split('.')
+  const { keys } = await NFTS.list()
+
+  if (!keys?.length)
+    throw new Error('No NFTs')
+
+  let toml = `VERSION="2.1.0"
+
+NETWORK_PASSPHRASE="${Networks[NETWORK]}"
+
+ACCOUNTS=[
+  "${ISSUER_PK}"
+]
+
+[DOCUMENTATION]
+ORG_NAME="Stellar Development Foundation"
+ORG_URL="https://stellar.org"
+ORG_SUPPORT_EMAIL="ecosystem@stellar.org"
+
+[[PRINCIPALS]]
+name="Tyler van der Hoeven"
+email="tyler@stellar.org"
+keybase="tyvdh"
+twitter="tyvdh"
+github="tyvdh"
+discord="kalepail#8891"
+
+${keys.map((key) => `[[CURRENCIES]]
+code="${key.name}"
+issuer="${ISSUER_PK}"
+image="${url.protocol}//${domain.join('.')}/img/${key.name}.png"`
+).join('\n\n')}
+`
+
+  return new Response(toml, {
+    headers: {
+      'Content-Type': 'text/plain',
+      'Content-Length': toml.length,
+      'Cache-Control': 'public, max-age=5',
+    },
+  })
+}

@@ -72,6 +72,7 @@
         method: 'POST',
         body: JSON.stringify({
           ...alebedoTx,
+          code,
           key
         }),
         headers: {

@@ -1,6 +1,6 @@
 import colors from '@/final-colors.json'
 
-export async function GET({params}) {
+export async function GET({ params }) {
   const w = 600
   const h = 320
   const alph = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
@@ -79,8 +79,8 @@ export async function GET({params}) {
   return new Response(svg, {
     headers: {
       'Content-Type': 'image/svg+xml',
+      'Content-Length': svg.length,
       'Cache-Control': 'public, max-age=5',
-      'Content-Length': svg.length
     }
   })
 }
