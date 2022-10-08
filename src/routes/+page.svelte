@@ -1,14 +1,15 @@
 <script>
-  import { random } from 'lodash-es'
   import colors from '@/final-colors.json'
   import { onMount } from 'svelte';
   import { handleResponse } from '@/helpers/utils'
+
+  export let data
 
   const w = 600
   const h = 320
   const alph = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
-  let arr = new Array(12).fill(0).map(() => random(0, 61))
+  let arr = data.arr
   let code = ''
   let input = ''
   let loading = false

@@ -1,12 +1,12 @@
 # Todo
-- [ ] Support custom toml files
 - [ ] Migrate to live network
-- [ ] Double data load on page load
 - [ ] Add better errors
-- [ ] Block minting on prod until Meridian week
+- [ ] Support SEP-14 https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0014.md
 
 # Done
 - [x] Add success state
 - [x] Add loaders
 - [x] Get this on the custom domain m22.stellar.buzz
 - [x] Add domain to NFT Issuer address
+- [x] Support custom toml files
+- [x] Double data load on page load
