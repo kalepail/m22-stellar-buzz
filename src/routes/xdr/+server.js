@@ -27,7 +27,6 @@ export async function POST({ platform, request }) {
 
     transaction.sign(issuerKeypair)
 
-    console.log(code)
     await NFTS.put(code, 'OK')
 
     return new Response(

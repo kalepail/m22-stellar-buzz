@@ -3,6 +3,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite dev",
+    "start": "CF_PAGES=1 wrangler dev --local=true --persist=true",
     "build:pages": "CF_PAGES=1 vite build",
     "build:workers": "vite build",
     "preview": "vite preview"
