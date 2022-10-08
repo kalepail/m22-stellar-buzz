@@ -35,7 +35,7 @@ discord="kalepail#8891"
 ${keys.map((key) => `[[CURRENCIES]]
 code="${key.name}"
 issuer="${ISSUER_PK}"
-image="${url.protocol}//${domain.join('.')}/img/${key.name}.png"`
+image="${url.protocol}//${domain.join('.')}/img/${key.name}.svg"`
 ).join('\n\n')}
 `
 
