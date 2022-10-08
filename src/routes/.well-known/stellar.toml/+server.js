@@ -21,7 +21,7 @@ ACCOUNTS=[
 
 [DOCUMENTATION]
 ORG_NAME="Stellar Development Foundation"
-ORG_URL="https://stellar.org"
+ORG_URL="https://m22.stellar.buzz"
 ORG_SUPPORT_EMAIL="ecosystem@stellar.org"
 
 [[PRINCIPALS]]
