@@ -7,8 +7,10 @@ export async function GET({ params }) {
   const { code } = params
   const arr = new Array(code.length).fill(0).map((_, i) => alph.indexOf(code[i]))
 
-  if (arr.includes(-1))
-    throw new Error('Invalid code')
+  if (
+    arr.length !== 12
+    || arr.includes(-1)
+  ) throw new Error('Invalid code')
 
   const svg = (
   `<svg viewBox="0 0 ${w} ${h}" width="${w}" height="${h}" xmlns="http://www.w3.org/2000/svg">
