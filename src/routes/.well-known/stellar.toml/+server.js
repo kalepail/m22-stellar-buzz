@@ -1,5 +1,6 @@
 import { Networks } from "stellar-base"
 import { NETWORK, ISSUER_PK } from '$env/static/private'
+import { error } from 'itty-router-extras'
 
 export async function GET({ url, platform }) {
   const { env } = platform
@@ -9,7 +10,7 @@ export async function GET({ url, platform }) {
   const { keys } = await NFTS.list()
 
   if (!keys?.length)
-    throw new Error('No NFTs')
+    return error(400, 'No NFTs')
 
   let toml = `VERSION="2.1.0"
 

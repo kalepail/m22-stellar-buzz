@@ -1,4 +1,5 @@
 import colors from '@/final-colors.json'
+import { error } from 'itty-router-extras'
 
 export async function GET({ params }) {
   const w = 600
@@ -10,7 +11,7 @@ export async function GET({ params }) {
   if (
     arr.length !== 12
     || arr.includes(-1)
-  ) throw new Error('Invalid code')
+  ) return error(400, 'Invalid code')
 
   const svg = (
   `<svg viewBox="0 0 ${w} ${h}" width="${w}" height="${h}" xmlns="http://www.w3.org/2000/svg">

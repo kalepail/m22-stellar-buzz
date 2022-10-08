@@ -12,7 +12,7 @@
   let arr = data.arr
   let code = ''
   let input = ''
-  let error = JSON.stringify({hello: 'world'}, null, 2) // null
+  let error = null
   let errorEl
   let loading = false
   let success = false
@@ -110,7 +110,7 @@
 
 {#if error}
   <div class="absolute flex items-center justify-center bg-black/50 top-0 left-0 bottom-0 right-0" bind:this={errorEl} on:click="{(e) => closeError(e)}">
-    <pre class="border border-red-500 p-4 px-6 text-white text-sm" style:background-color="{'#8a7979'}">{@html error}</pre>
+    <pre class="border border-red-500 p-4 px-6 text-white text-xs overflow-y-auto m-2" style:background-color="{'#8a7979'}" style:max-width="{'600px'}">{@html error}</pre>
   </div>
 {/if}
 

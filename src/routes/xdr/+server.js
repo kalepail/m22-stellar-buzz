@@ -3,6 +3,7 @@ import albedoLinkSignatureVerification from '@albedo-link/signature-verification
 import { handleResponse } from '@/helpers/utils'
 import BigNumber from 'bignumber.js'
 import { Keypair, Account, TransactionBuilder, Networks, Operation, Asset, Transaction } from 'stellar-base'
+import { error } from 'itty-router-extras'
 
 const { verifyMessageSignature } = albedoLinkSignatureVerification
 
@@ -23,7 +24,7 @@ export async function POST({ platform, request }) {
     const keyIsValid = issuerKeypair.verify(transaction.hash(), Buffer.from(key, 'base64'))
 
     if (!keyIsValid)
-      throw new Error('Invalid key')
+      return error(400, 'Invalid key')
 
     transaction.sign(issuerKeypair)
 
@@ -43,7 +44,7 @@ export async function POST({ platform, request }) {
 
   else if (signature) {
     if (code.length !== 12)
-      throw new Error('Invalid code')
+      return error(400, 'Invalid code')
 
     const signatureIsValid = verifyMessageSignature(
       pubkey,
@@ -52,7 +53,7 @@ export async function POST({ platform, request }) {
     )
     
     if (!signatureIsValid)
-      throw new Error('Invalid signature')
+      return error(400, 'Invalid signature')
 
     const accountLoaded = await fetch(`${HORIZON}/accounts/${pubkey}`).then(handleResponse)
     const { sequence } = accountLoaded
@@ -91,5 +92,5 @@ export async function POST({ platform, request }) {
   }
 
   else
-    throw new Error('Invalid request')
+    return error(400, 'Invalid request')
 }

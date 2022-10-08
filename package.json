@@ -20,6 +20,8 @@
     "bignumber.js": "^9.1.0",
     "buffer": "^6.0.3",
     "esbuild": "^0.15.10",
+    "itty-router": "^2.6.6",
+    "itty-router-extras": "^0.4.2",
     "lodash-es": "^4.17.21",
     "miniflare": "^2.9.0",
     "path": "^0.12.7",

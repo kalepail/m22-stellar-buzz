@@ -1,9 +1,9 @@
 export async function handleResponse(response) {
   const isResponseJson = response.headers.get('content-type')?.indexOf('json') > -1
-
+  
   if (response.ok)
     return isResponseJson
-    ? response.json() 
+    ? response.json()
     : response.text()
 
   throw isResponseJson
@@ -11,5 +11,15 @@ export async function handleResponse(response) {
     ...await response.json(),
     status: response.status
   }
-  : await response.text()
+  : {
+    message: await response.text(),
+    status: response.status
+  }
+}
+
+export function shajs(data) {
+  return crypto.subtle.digest(
+    {name: 'SHA-256'},
+    Buffer.from(data)
+  ).then(Buffer.from)
 }
