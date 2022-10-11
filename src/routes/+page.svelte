@@ -16,6 +16,7 @@
   let errorEl
   let loading = false
   let success = false
+  let assets = []
 
   $: {
     code = ''
@@ -35,18 +36,32 @@
 
   let albedo
   let StellarSdk
+  let server
 
   onMount(async () => {
     albedo = await import('@albedo-link/intent').then((pkg) => pkg.default)
     StellarSdk = await import('stellar-sdk')
+
+    const { Server } = StellarSdk
+
+    server = new Server(import.meta.env.VITE_HORIZON)
+
+    getAssets()
   })
+
+  async function getAssets() {
+    return server
+    .assets()
+    .forIssuer(import.meta.env.VITE_ISSUER_PK)
+    .call()
+    .then(({ records }) => assets = records)
+  }
 
   async function handleSubmit() {
     try {
       loading = true
 
-      const { Server, Transaction } = StellarSdk
-      const server = new Server(import.meta.env.VITE_HORIZON)
+      const { Transaction } = StellarSdk
 
       const albedoPublicKey = await albedo.publicKey()
       const { pubkey } = albedoPublicKey
@@ -204,3 +219,14 @@
     {/if}
   </button>
 </form>
+
+<h1 class="mt-4 mb-2">Minted NFTs</h1>
+<ul class="flex flex-wrap w-full">
+{#each assets as asset}
+  <li class="mr-2" style:max-width="100px">
+    <a href="https://stellar.expert/explorer/{(import.meta.env.VITE_NETWORK).toLowerCase()}/asset/{asset.asset_code}-{asset.asset_issuer}">
+      <img src="/img/{asset.asset_code}.svg" />
+    </a>
+  </li>
+{/each}
+</ul>
