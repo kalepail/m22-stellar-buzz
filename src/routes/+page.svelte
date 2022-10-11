@@ -223,7 +223,7 @@
 <h1 class="mt-4 mb-1">Minted NFTs</h1>
 <ul class="bg-black p-2 flex flex-wrap w-full">
 {#each assets as asset}
-  <li class="mr-2" style:max-width="100px">
+  <li class="border border-white mr-2" style:max-width="100px">
     <a href="https://stellar.expert/explorer/{(import.meta.env.VITE_NETWORK).toLowerCase()}/asset/{asset.asset_code}-{asset.asset_issuer}">
       <img src="/img/{asset.asset_code}.svg" />
     </a>
