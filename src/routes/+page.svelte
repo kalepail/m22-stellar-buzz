@@ -201,8 +201,18 @@
 
   <div class="my-4">
     {#each arr as value, i}
-      <label class="flex mb-2 last:mb-0">
-        <input class="w-full" type="range" min="0" max="61" bind:value="{value}" name="{i}" disabled="{alph.indexOf(input[i]) > -1}">
+      <label class="flex mb-4 last:mb-0">
+        <input class="
+          appearance-none
+          bg-gray-300/80
+          hover:bg-gray-300
+          w-full
+          border
+          border-gray-300
+          rounded-full
+          border-solid
+          slider-thumb
+        " style:border-width="2px" type="range" min="0" max="61" bind:value="{value}" name="{i}" disabled="{alph.indexOf(input[i]) > -1}">
       </label>
     {/each}
   </div>
