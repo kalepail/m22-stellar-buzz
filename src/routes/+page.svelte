@@ -114,6 +114,9 @@
   </div>
 {/if}
 
+<h1 class="text-3xl font-semibold">Build Your Own</h1>
+<h2 class="text-xl mb-4">Stellar Meridian 2022 NFT</h2>
+
 <svg class="border border-black w-full h-auto" style:max-width="{w}px" viewBox="0 0 {w} {h}" width="{w}" height="{h}" xmlns="http://www.w3.org/2000/svg">
   <!-- background -->
   <!-- 0 size -->
